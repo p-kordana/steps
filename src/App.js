@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const messages = [
   "Learn React ⚛️",
@@ -10,37 +10,67 @@ function App() {
   const btnStyle = { backgroundColor: "#7950f2", color: "#ffffff" };
 
   const [step, setStep] = useState(1);
+  const [isOpen, setIsOpen] = useState(true);
 
   function handlePrevious() {
     if (step === 1) setStep(3);
-    else setStep(step - 1);
+    else setStep((s) => s - 1);
   }
 
   function handleNext() {
     if (step === 3) setStep(1);
-    else setStep(step + 1);
+    else setStep((s) => s + 1);
   }
 
   return (
-    <div className="steps">
-      Hello world.
-      <div className="numbers">
-        <div className={step >= 1 ? "active" : ""}>1</div>
-        <div className={step >= 2 ? "active" : ""}>2</div>
-        <div className={step >= 3 ? "active" : ""}>3</div>
+    <>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
+        {isOpen ? <>&times;</> : "+"}
+      </button>
+      {isOpen && (
+        <div className="steps">
+          <h2>Hello world.</h2>
+          <div className="numbers">
+            <div className={step >= 1 ? "active" : ""}>1</div>
+            <div className={step >= 2 ? "active" : ""}>2</div>
+            <div className={step >= 3 ? "active" : ""}>3</div>
+          </div>
+          <p className="message">
+            Step {step}: {messages[step - 1]}
+          </p>
+          <div className="buttons">
+            <button style={btnStyle} onClick={handlePrevious}>
+              Previous
+            </button>
+            <button style={btnStyle} onClick={handleNext}>
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="steps">
+        <div className="buttons">
+          <Counter />
+          <Counter />
+          <Counter />
+          <Counter />
+        </div>
       </div>
-      <p className="message">
-        Step {step}: {messages[step - 1]}
-      </p>
-      <div className="buttons">
-        <button style={btnStyle} onClick={handlePrevious}>
-          Previous
-        </button>
-        <button style={btnStyle} onClick={handleNext}>
-          Next
-        </button>
-      </div>
-    </div>
+    </>
+  );
+}
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  function handleCount() {
+    setCount((c) => c + 1);
+  }
+
+  return (
+    <>
+      <button onClick={handleCount}>Clicked: {count}</button>
+    </>
   );
 }
 
