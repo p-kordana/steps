@@ -39,12 +39,12 @@ function App() {
             Step {step}: {messages[step - 1]}
           </p>
           <div className="buttons">
-            <button style={btnStyle} onClick={handlePrevious}>
-              Previous
-            </button>
-            <button style={btnStyle} onClick={handleNext}>
-              Next
-            </button>
+            <Button style={btnStyle} handler={handlePrevious}>
+              <span>◀️</span>Previous
+            </Button>
+            <Button style={btnStyle} handler={handleNext}>
+              Next<span>▶️</span>
+            </Button>
           </div>
         </div>
       )}
@@ -71,6 +71,14 @@ function Counter() {
     <>
       <button onClick={handleCount}>Clicked: {count}</button>
     </>
+  );
+}
+
+function Button({ style, handler, children }) {
+  return (
+    <button style={style} onClick={handler}>
+      {children}
+    </button>
   );
 }
 
