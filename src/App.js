@@ -3,7 +3,9 @@ import React, { useState } from "react";
 const messages = [
   "Learn React ⚛️",
   "Apply for jobs 💼",
+  "Get that job! 👍",
   "Invest your new income 🤑",
+  "Money 💰",
 ];
 
 function App() {
@@ -13,12 +15,12 @@ function App() {
   const [isOpen, setIsOpen] = useState(true);
 
   function handlePrevious() {
-    if (step === 1) setStep(3);
+    if (step === 1) setStep(messages.length);
     else setStep((s) => s - 1);
   }
 
   function handleNext() {
-    if (step === 3) setStep(1);
+    if (step === messages.length) setStep(1);
     else setStep((s) => s + 1);
   }
 
@@ -31,9 +33,9 @@ function App() {
         <div className="steps">
           <h2>Hello world.</h2>
           <div className="numbers">
-            <div className={step >= 1 ? "active" : ""}>1</div>
-            <div className={step >= 2 ? "active" : ""}>2</div>
-            <div className={step >= 3 ? "active" : ""}>3</div>
+            {messages.map((m, i) => (
+              <div className={step >= i + 1 ? "active" : ""}>{i + 1}</div>
+            ))}
           </div>
           <p className="message">
             Step {step}: {messages[step - 1]}
